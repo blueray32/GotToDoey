@@ -11,8 +11,16 @@ import UIKit
 class GotToDoeyVC: UITableViewController {
     
     var itemArray = ["kick emma up the bum if she does not bring sally" , "tell emma to make me Coffy" , "emma now ", "kick emma up the bum if she does not bring sally"]
+    
+    let defaults = UserDefaults.standard
 
     override func viewDidLoad() {
+        
+        if let items = defaults.array(forKey: "GotToDoeyListArray") as? [String] {
+            
+           itemArray = items 
+        }
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -53,6 +61,8 @@ class GotToDoeyVC: UITableViewController {
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             
            self.itemArray.append(textField.text!)
+            
+            self.defaults.setValue(self.itemArray, forKey: "GotToDoeyListArray")
             self.tableView.reloadData()
         }
         alert.addTextField { (alertTextfield) in
