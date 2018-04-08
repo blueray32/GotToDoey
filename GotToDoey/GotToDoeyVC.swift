@@ -10,7 +10,7 @@ import UIKit
 
 class GotToDoeyVC: UITableViewController {
     
-    let itemArray = ["kick emma up the bum if she does not bring sally" , "tell emma to make me Coffy" , "emma now ", "kick emma up the bum if she does not bring sally"]
+    var itemArray = ["kick emma up the bum if she does not bring sally" , "tell emma to make me Coffy" , "emma now ", "kick emma up the bum if she does not bring sally"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,5 +44,24 @@ class GotToDoeyVC: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    //Mark - Add new Items
+    @IBAction func addBtnPressed(_ sender: UIBarButtonItem) {
+   
+        var textField = UITextField()
+        
+    let alert = UIAlertController(title: "Add New GotToDoey Item", message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            
+           self.itemArray.append(textField.text!)
+            self.tableView.reloadData()
+        }
+        alert.addTextField { (alertTextfield) in
+            alertTextfield.placeholder = "Create new Item"
+            textField = alertTextfield
+        }
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    
+    }
 }
 
